@@ -1,0 +1,6 @@
+sort(A)若A是向量不管是列还是行向量，默认都是对A进行升序排列。sort(A)是默认的升序，而sort(A,'descend')是降序排序。
+sort(A)若A是矩阵，默认对A的各列进行升序排列
+sort(A,dim)
+dim=1时等效sort(A)
+
+dim=2时表示对A中的各行元素升序排列
