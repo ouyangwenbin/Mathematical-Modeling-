@@ -1,0 +1,15 @@
+1.用matlab自带函数直接计算
+以matlab中的mahal函数为例：D2 = MAHAL(Y,X)
+Y为观测数据值，X为样本数据点，二者的列数（维度）必须相同，行数（样本数）不必相同。根据样本数据X，我们可以计算出该类样本的均值与协方差矩阵，然后代入计算公式就可以得到观测数据Y到该类数据的马氏距离。mahal(Y,X)返回的是一个length(Y)*1的矩阵，代表Y中的每一个样本到X的距离。
+
+2.手动计算
+x = mvnrnd([0;0], [1 .9;.9 1], 100);  %样本数据
+y = [1 1;1 -1;-1 1;-1 -1];            %观测数据
+[ry,cy] = size(y);
+u = mean(x,1);  % mean value
+sigma = cov(x); % covariance matrix
+dist = sum((y - repmat(u,ry,1)) * inv(sigma).*(y - repmat(u,ry,1)),2)
+上述结果与用mahal函数返回的结果相同
+
+3.Y=pdist(X,'mahal')
+pdist计算的是X矩阵中配对样本的马氏距离。设X有m个样本，则有m(m-1)/2个匹配对，即该函数返回相应大小的矩阵。
